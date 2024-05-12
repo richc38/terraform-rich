@@ -1,9 +1,10 @@
-provider "aws" {
-  region                   = "us-west-1"
-  shared_credentials_files = ["~/.aws/credentials"]
-  profile                  = tfuser
+resource "aws_s3_bucket" "tfbucket1" {
+  bucket = "rctf-state-bucket"
 }
 
-resource "aws_iam_user" "user1" {
-  name = "richuser"
+resource "aws_s3_bucket_versioning" "tfbucket1vers" {
+  bucket = aws_s3_bucket.tfbucket1.id
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
